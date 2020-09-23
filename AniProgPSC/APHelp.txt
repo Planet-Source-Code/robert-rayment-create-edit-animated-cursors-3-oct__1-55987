@@ -1,0 +1,93 @@
+5
+1. Overview
+2. Limitations
+3. Making simple ani-cursor
+4. Capturing
+5. References
+ 
+               AniProg Help
+                   by
+              Robert Rayment
+               (Sep 2004)
+ 
+ 
+  
+1. Overview
+   
+   Program can create/edit animated cursors (*.ani)
+   or ordinary cursors (*.cur).  Brief help is given
+   by on-screen help boxes by pressing the ? buttons.
+   Throughout, a distinction is made between the Left
+   & Right mouse buttons indicated by L & R.
+   
+   Some simple ani-cursors are included and once
+   opened can be tested by the Test ani or Test
+   cursor buttons.  These buttons toggle between
+   the test and standard cursor. Note also that
+   ALT-A and ALT-C also does the toggling. 
+   
+   The file AniCursor.bas shows how to switch the
+   cursors on & off.
+ 
+2. Limitations
+   
+   All opened & saved images must be 32 x 32 pixels.
+   This is normally the case for cursors but if a
+   start image is loaded from an ico file it will
+   only take 32 x 32 icons.  Only 1, 4, 8 & 24 bpp
+   images can be made or captured.  With capturing,
+   GIF palettes are always extended to 8 bpp.  JPGs
+   are always 24 bpp and BMPs can be any of these.
+   The sequency chunk in ani files is ignored.  It
+   is often redundant. All palettes are assumed to
+   be the same as the first one.  A maximum of 64
+   frames can be designed. All frames are cycled
+   through (ie cFrames=cSteps, see Ani.txt).
+   
+3. Making simple ani-cursor
+   
+   The program starts with a couple of frames and
+   is ready to draw the first frame.  Make a quick
+   drawing with a selected color & drawing tool.
+   On the Effects menu Press the Copy L/R button
+   with the R mouse button.  Then say Swirl L/R
+   with the R button, Accept and Test ani.
+   
+   Next click Details and increase the Number of
+   frames.  Then press Copy L/R, Swirl L/R and
+   Test ani again.  Try altering the values in the
+   Rates Table on the Details form.  HotX & HotY
+   is the active point of the cursor and this can
+   also be set on the Details form.
+   
+4. Capturing
+
+   Right-clicking on one of the frames brings up a
+   menu which includes capturing.  This asks for a
+   BMP, GIF or JPG file which is then loaded into
+   the capturing form.  A moveable 32 x 32
+   rectangle defines the captured area.  Note that
+   for images with a palette (ie 1,4,8 bpp) always
+   capture from the same image for a set of frames
+   else the palette indexes will not be correct and
+   the ani-cursor likely to be all black.
+
+5. References
+   
+   AniCursor.bas
+   On www.AllAPI.Net
+   Code by Jerry Grant (Jerry@jg-design.net)
+   Visit his website at http://www.jg-design.net
+   
+   Centered palette
+   Method from Stefan Casier Paint256
+   
+   The best Freeware software, I've found, for
+   examining ani-cursors is:-
+   'AniTuner' by Guillaume Di Giusto at
+   http://www.gdgsoft.com
+   
+   
+   Hopefully with the on-screen help boxes this is
+   enough.
+   
