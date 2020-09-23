@@ -1,0 +1,55 @@
+From robertjh@awod.com Fri Aug 30 19:18:26 1996
+To: "'paul@wotsit.demon.co.uk'" <paul@wotsit.demon.co.uk>
+Subject: ANI (Windows95 Animated Cursor File Format)
+Date: Thu, 29 Aug 1996 21:52:01 -0400
+
+ANI (Windows95 Animated Cursor File Format)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is a paraphrase of the format.  It is essetially just a RIFF file =
+with extensions... (view this monospaced)
+This info basically comes from the MMDK (Multimedia DevKit).  I don't =
+have it in front of me, so I'm going backwards from a VB program I wrote =
+to decode .ANI files.
+
+"RIFF" {Length of File}
+    "ACON"
+        "LIST" {Length of List}
+            "INFOINAM" {Length of Title} {Data}
+            "IART" {Length of Author} {Data}
+        "fram"
+            "icon" {Length of Icon} {Data}      ; 1st in list
+            ...
+            "icon" {Length of Icon} {Data}      ; Last in list  (1 to cFrames)
+    "anih" {Length of ANI header (36 bytes)} {Data}   ; (see ANI Header TypeDef )
+    "rate" {Length of rate block} {Data}      ; ea. rate is a long (length is 1 to cSteps)
+    "seq " {Length of sequence block} {Data} ; ea. seq is a long (length is 1 to cSteps)
+
+-END-
+
+ - Any of the blocks ("ACON", "anih", "rate", or "seq ") can appear in any 
+order.  I've never seen "rate" or "seq " appear before "anih", though.  You
+need the cSteps value from "anih" to read "rate" and "seq ".  The order I 
+usually see the frames is: "RIFF", "ACON", "LIST", "INAM", "IART", "anih",
+"rate", "seq ", "LIST", "ICON".  You can see the "LIST" tag is repeated and
+the "ICON" tag is repeated once for every embedded icon.  The data pulled 
+from the "ICON" tag is always in the standard .ico file format.
+
+ - All {Length of...} are 4byte DWORDs.
+
+ - ANI Header TypeDef:
+
+struct tagANIHeader {
+    DWORD cbSizeOf; // Num bytes in AniHeader (36 bytes)
+    DWORD cFrames; // Number of unique Icons in this cursor
+    DWORD cSteps; // Number of Blits before the animation cycles
+    DWORD cx, cy; // reserved, must be zero.
+    DWORD cBitCount, cPlanes; // reserved, must be zero.
+    DWORD JifRate; // Default Jiffies (1/60th of a second) if rate chunk not present.
+    DWORD flags; // Animation Flag (see AF_ constants)
+    } ANIHeader;
+
+#define AF_ICON =3D 0x0001L // Windows format icon/cursor animation
+
+
+R. James Houghtaling
